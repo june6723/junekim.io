@@ -1,9 +1,12 @@
-import Image from "next/image";
-import Container from "../components/Container";
-import RecentPosts from "../components/RecentPosts";
-import metaData from "../data/metaData";
+import { allPosts } from 'contentlayer/generated';
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import { postByDateDesc } from 'util/logic';
+import Container from '../components/Container';
+import RecentPosts, { IRecentPosts } from '../components/RecentPosts';
+import metaData from '../data/metaData';
 
-const Home = () => {
+const Home = ({ recentPosts }: IRecentPosts) => {
   return (
     <Container>
       <div className={`my-5 w-full`}>
@@ -23,9 +26,15 @@ const Home = () => {
             {metaData.title}
           </span>
         </div>
-        <RecentPosts />
+        <RecentPosts recentPosts={recentPosts} />
       </div>
     </Container>
   );
 };
+
+export const getStaticProps: GetStaticProps<IRecentPosts> = async () => {
+  const recentPosts = allPosts.slice(0, 5).sort(postByDateDesc);
+  return { props: { recentPosts } };
+};
+
 export default Home;
