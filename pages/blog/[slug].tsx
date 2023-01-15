@@ -7,6 +7,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks';
 const BlogPost = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post.body.code);
   const customMeta = getCustomMeta({ title: post.title, description: post.description, date: post.date });
+
   return (
     <Container customMeta={customMeta}>
       <div className="mt-10 prose dark:prose-invert">
@@ -24,14 +25,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<{ post: Post }> = async params => {
-  const { slug } = params as IParams;
+export const getStaticProps: GetStaticProps<{ post: Post }> = async context => {
+  const { slug } = context.params as IParams;
   const post = allPosts.find(p => p._raw.flattenedPath === slug);
-  if (!post) {
-    return {
-      notFound: true,
-    };
-  }
+
+  if (!post) return { notFound: true };
   return {
     props: { post },
   };
