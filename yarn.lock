@@ -135,6 +135,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@corex/deepmerge@npm:^4.0.29":
+  version: 4.0.37
+  resolution: "@corex/deepmerge@npm:4.0.37"
+  checksum: f6f5daf29762f691dbc1104c092639897d65219e809f7c1028f7797e361c7787bd247bfd09e81f31b70386f1611ed9c4c137dd45c404b4da2f606a6cca51c6d8
+  languageName: node
+  linkType: hard
+
 "@effect-ts/core@npm:^0.60.2, @effect-ts/core@npm:^0.60.5":
   version: 0.60.5
   resolution: "@effect-ts/core@npm:0.60.5"
@@ -3525,6 +3532,7 @@ __metadata:
     eslint-config-next: 12.3.1
     next: 12.3.1
     next-contentlayer: ^0.2.9
+    next-sitemap: ^3.1.45
     postcss: ^8.4.18
     react: 18.2.0
     react-dom: 18.2.0
@@ -4256,7 +4264,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6, minimist@npm:^1.2.7":
   version: 1.2.7
   resolution: "minimist@npm:1.2.7"
   checksum: 7346574a1038ca23c32e02252f603801f09384dd1d78b69a943a4e8c2c28730b80e96193882d3d3b22a063445f460e48316b29b8a25addca2d7e5e8f75478bec
@@ -4413,6 +4421,22 @@ __metadata:
     react: "*"
     react-dom: "*"
   checksum: d5966e36d806c3c65cb088063009a633567628403f23c1434a30480caf60c1537df8351682a05535b727d8fd74261bbe9df529ccc6984c2228b9bb6e197a6e1b
+  languageName: node
+  linkType: hard
+
+"next-sitemap@npm:^3.1.45":
+  version: 3.1.45
+  resolution: "next-sitemap@npm:3.1.45"
+  dependencies:
+    "@corex/deepmerge": ^4.0.29
+    minimist: ^1.2.7
+  peerDependencies:
+    "@next/env": "*"
+    next: "*"
+  bin:
+    next-sitemap: bin/next-sitemap.mjs
+    next-sitemap-cjs: bin/next-sitemap.cjs
+  checksum: a448df4c784baeb57cd33313246b2d2010d499ff330939a589ba73ea58e7ad891ef15c077e87e21eff0726053a71c8d22bc56271987d77a341505c850944af00
   languageName: node
   linkType: hard
 
