@@ -24,8 +24,32 @@ export const Post = defineDocumentType(() => ({
     },
   },
 }));
+export const Draft = defineDocumentType(() => ({
+  name: 'Draft',
+  contentType: 'mdx',
+  filePathPattern: `**/*.md`,
+  fields: {
+    title: {
+      type: 'string',
+      description: 'The title of the post',
+      required: true,
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the post',
+      required: true,
+    },
+    description: { type: 'string', required: true },
+  },
+  computedFields: {
+    url: {
+      type: 'string',
+      resolve: post => `/draft/${post._raw.flattenedPath}`,
+    },
+  },
+}));
 
 export default makeSource({
   contentDirPath: 'posts',
-  documentTypes: [Post],
+  documentTypes: [Post, Draft],
 });
