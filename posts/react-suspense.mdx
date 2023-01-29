@@ -1,0 +1,182 @@
+---
+type: Post
+title: React Suspense Surffing
+date: 2022-01-12
+description: Suspense가 해결하려는 문제점과 간단한 예시
+---
+
+React v18이 발표된지 꽤나 시간이 흘렀다.
+작년에 18 버전이 나오난 후 회사에서 유지보수하는 프로젝트에 적용해보려고 했으나,
+사용중인 라이브러리들의 호환성 때문에 잠시 미룰수 밖에 없었다.
+그러다 여유가 조금 날때 시간을 들여 18 버전으로 마이그레이션에 성공했고 18버전에 새롭게 출시된 기능들을 하나씩 사용해보려고 하다가 맨 처음 적용시켜보고 싶었던게 **Suspense** 기능이였다.
+
+## Suspense of React
+
+먼저 React beta docs에서 Suspense가 어떤 기능을 하는지 확인해보면,
+
+> `<Suspense>` lets you display a fallback until its children have finished loading.
+
+**children** 컴포넌트가 로딩 상태일동안 `fallback`을 보여준다고 설명이 되어있다.
+Suspense의 사용법은 아래와 같다.
+
+```jsx
+<Suspense fallback={<Loading />}>
+  <SomeComponent />
+</Suspense>
+```
+
+React 18버전의 소개 영상이나 기술 블로그에서도 오며가며 많이 보았기 때문에 사용법 자체는 되게 친숙했다.
+그래서 먼저 간단하게 검증을 해보려고 간단한 Todo 프로젝트를 만들었다.
+
+```jsx
+const User = ({ userId }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUser(userId).then(res => {
+      setUser(res);
+      setIsLoading(false);
+    });
+  }, [userId]);
+
+  if (isLoading) return <span>User Loading...</span>;
+  return (
+    <div>
+      <UserProfile user={user} />
+      <Todos userId={userId} />
+    </div>
+  );
+};
+
+const App = () => {
+  return <User userId={1} />;
+};
+```
+
+아주 클래식한 리액트에서 서버의 비동기 데이터를 다루는 방식이다.\
+이 코드를 Suspense로 적용시켜보면...
+
+```jsx
+const User = ({ userId }) => {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    getUser(userId).then(res => {
+      setUser(res);
+    });
+  }, [userId]);
+
+  return (
+    <div>
+      <UserProfile user={user} />
+      <Todos userId={userId} />
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <Suspense fallback={<span>User Loading...</span>}>
+      <User userId={1} />
+    </Suspense>
+  );
+};
+```
+
+"이게 정말 된다고...?" 라는 생각을 가지며 일단 실행시켜 보았으나\
+당연히 결과는 실패, 애초에 지금 코드로는 `Suspense`가 children의 로딩 상태를 전혀 알 수가 없다.
+분명히 `children`에서 `Suspense`에게 loading, success와 같은 상태값을 알려줘야 할텐데 어떻게 구현을 해야할까?
+궁금해하며 이것저것 찾아보았는데 react beta docs의 [Usage](https://beta.reactjs.org/reference/react/Suspense#usage)에서 힌트를 찾았다.
+
+```jsx
+// ... in React beta docs
+export default function Albums({ artistId }) {
+  const albums = use(fetchData(`/${artistId}/albums`));
+  return (
+    <ul>
+      {albums.map(album => (
+        <li key={album.id}>
+          {album.title} ({album.year})
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// This is a workaround for a bug to get the demo running.
+// TODO: replace with real implementation when the bug is fixed.
+function use(promise) {
+  if (promise.status === 'fulfilled') {
+    return promise.value;
+  } else if (promise.status === 'rejected') {
+    throw promise.reason;
+  } else if (promise.status === 'pending') {
+    throw promise;
+  } else {
+    promise.status = 'pending';
+    promise.then(
+      result => {
+        promise.status = 'fulfilled';
+        promise.value = result;
+      },
+      reason => {
+        promise.status = 'rejected';
+        promise.reason = reason;
+      },
+    );
+    throw promise;
+  }
+}
+```
+
+`use` 함수를 보면 promise의 상태가 **fulfilled**이라면 결과값을 리턴하지만,
+**rejected**, **pending**일 경우에는 promise를 Throw하고 있다.
+아마 `Suspense`에서 `promise.state`가 **pending**일때 fallback을 렌더링하는 것 같다.
+
+## 기존(Legacy)방식과 Suspense 방식 비교
+
+드디어 Suspense를 어떻게 사용하는지 좀 알게 되었고 그래서 Suspense가 기존 방식과는 어떤 점이 다른지 비교하기 위해
+예제를 본격적으로 만들어 보았다. ([예제 github repo](https://github.com/june6723/react-suspense))
+
+기존의 문제점은 만약 `Todos` 컴포넌트에 비동기 요청 로직이 포함되어 있다면 `User` 컴포넌트의 로딩이 끝나기 전까지는
+`Todos`의 비동기 함수가 실행될 수 없다는 것이다.
+
+```jsx
+// ...기존 방식
+if (isLoading) return <span>User Loading...</span>;
+return (
+  <div>
+    <UserProfile user={user} />
+    <Todos userId={userId} />
+  </div>
+);
+```
+
+하지만 Suspense를 사용하게 되면 `User`, `Todos` 컴포넌트는 그대로 실행되고 **Promise** 상태에 따라
+Suspense에서 fallback을 처리해주니 `Todos` 컴포넌트의 비동기 요청도 `User`의 pending 상태를 기다리지 않고 바로 보낼 수 있게 된다.
+
+```jsx
+// ...Suspense 방식
+return (
+  <div>
+    <UserProfile user={user} />
+    <Suspense>
+      <Todos userId={userId} />
+    </Suspense>
+  </div>
+);
+```
+
+실제로 컴포넌트에 console.log 명령어를 통해 Legacy, Suspense 두 방식 각각 어떻게 렌더링과 데이터 요청이 가는지 확인해봤다.
+
+- Legacy 방식
+  ![Legacy_async](/Legacy_async.png)
+- Suspense 방식
+  ![Suspense_async](/Suspense_async.png)
+  ![suspense_compare](/suspense_compare.gif)
+
+Legacy 방식에서 볼 수 있듯이 부모 컴포넌트가 그려지기전까지 자식 컴포넌트의 렌더링이 막혀있는 문제를 `waterfall` 문제라고 부르고
+Suspense가 이 문제점에 대해 해결책을 제시하고 있다. 결국 **Promise**를 값으로서
+부모 컴포넌트인 Suspense가 받을 수 있도록 처리한 점이 인상깊다.

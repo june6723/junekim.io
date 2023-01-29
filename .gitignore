@@ -46,4 +46,4 @@ next-env.d.ts
 !.yarn/versions
 
 # contentlayer
-/.contentlayer/
+.contentlayer
