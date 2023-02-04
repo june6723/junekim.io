@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import metaData from '../data/metaData';
+import Footer from './Footer';
 import Nav from './Nav';
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 const Container = ({ children, customMeta }: Props) => {
   const { title, url, siteName, description, image, twitterName } = { ...metaData, ...customMeta };
   return (
-    <div className={`w-full flex flex-col items-center p-3`}>
+    <div className={`w-full flex flex-col items-center p-3 `}>
       <Head>
         <title>{title}</title>
         <meta content={description} name="description" />
@@ -36,6 +37,7 @@ const Container = ({ children, customMeta }: Props) => {
         <Nav />
       </header>
       <main className={`w-full max-w-3xl`}>{children}</main>
+      <Footer />
     </div>
   );
 };

@@ -29,6 +29,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@effect-ts/core", "npm:0.60.5"],\
+            ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
+            ["@fortawesome/free-brands-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/free-regular-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/free-solid-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/react-fontawesome", "virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.2.0"],\
             ["@tailwindcss/typography", "virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.5.9"],\
             ["@types/node", "npm:18.11.0"],\
             ["@types/react", "npm:18.0.21"],\
@@ -414,6 +419,82 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@fal-works-esbuild-plugin-global-externals-npm-2.1.2-b50ef0c6e7-c59715902b.zip/node_modules/@fal-works/esbuild-plugin-global-externals/",\
           "packageDependencies": [\
             ["@fal-works/esbuild-plugin-global-externals", "npm:2.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/fontawesome-common-types", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/unplugged/@fortawesome-fontawesome-common-types-npm-6.2.1-0d35c18eaf/node_modules/@fortawesome/fontawesome-common-types/",\
+          "packageDependencies": [\
+            ["@fortawesome/fontawesome-common-types", "npm:6.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/fontawesome-svg-core", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/unplugged/@fortawesome-fontawesome-svg-core-npm-6.2.1-d290dc12b5/node_modules/@fortawesome/fontawesome-svg-core/",\
+          "packageDependencies": [\
+            ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
+            ["@fortawesome/fontawesome-common-types", "npm:6.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/free-brands-svg-icons", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/unplugged/@fortawesome-free-brands-svg-icons-npm-6.2.1-c96621f3ad/node_modules/@fortawesome/free-brands-svg-icons/",\
+          "packageDependencies": [\
+            ["@fortawesome/free-brands-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/fontawesome-common-types", "npm:6.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/free-regular-svg-icons", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/unplugged/@fortawesome-free-regular-svg-icons-npm-6.2.1-6e0ced55b5/node_modules/@fortawesome/free-regular-svg-icons/",\
+          "packageDependencies": [\
+            ["@fortawesome/free-regular-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/fontawesome-common-types", "npm:6.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/free-solid-svg-icons", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/unplugged/@fortawesome-free-solid-svg-icons-npm-6.2.1-ea5991f75e/node_modules/@fortawesome/free-solid-svg-icons/",\
+          "packageDependencies": [\
+            ["@fortawesome/free-solid-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/fontawesome-common-types", "npm:6.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fortawesome/react-fontawesome", [\
+        ["npm:0.2.0", {\
+          "packageLocation": "./.yarn/cache/@fortawesome-react-fontawesome-npm-0.2.0-a36215138f-f652a0c217.zip/node_modules/@fortawesome/react-fontawesome/",\
+          "packageDependencies": [\
+            ["@fortawesome/react-fontawesome", "npm:0.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/@fortawesome-react-fontawesome-virtual-792cdda3bc/0/cache/@fortawesome-react-fontawesome-npm-0.2.0-a36215138f-f652a0c217.zip/node_modules/@fortawesome/react-fontawesome/",\
+          "packageDependencies": [\
+            ["@fortawesome/react-fontawesome", "virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.2.0"],\
+            ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
+            ["@types/fortawesome__fontawesome-svg-core", null],\
+            ["@types/react", "npm:18.0.21"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@fortawesome/fontawesome-svg-core",\
+            "@types/fortawesome__fontawesome-svg-core",\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4512,6 +4593,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["junekim.io", "workspace:."],\
             ["@effect-ts/core", "npm:0.60.5"],\
+            ["@fortawesome/fontawesome-svg-core", "npm:6.2.1"],\
+            ["@fortawesome/free-brands-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/free-regular-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/free-solid-svg-icons", "npm:6.2.1"],\
+            ["@fortawesome/react-fontawesome", "virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.2.0"],\
             ["@tailwindcss/typography", "virtual:8960ff347562c99eb1c37001f7ac37e0a1278b9fc14e31e9b3061e08f2fdc27177b7c642ee823d599f34db72c99b3850242468f416b22d956bb4027e489cd30c#npm:0.5.9"],\
             ["@types/node", "npm:18.11.0"],\
             ["@types/react", "npm:18.0.21"],\
