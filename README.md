@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Junekim.dev
 
-## Getting Started
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
 
-First, run the development server:
+## TODO
+
+"시작이 반이다"라는 말을 되뇌이며 미루기만하던 개인 블로그를 시작했습니다.
+아직은 조금 초라하지만 꾸준히 바꿔나가기로 마음 먹었습니다.
+
+- [ ] 1달에 최소 Post 하나씩 작성하기
+- [ ] 새로운 나만의 디자인
+- [ ] About Page 제작
+- [ ] Next v13 도입
+- [ ] 댓글 기능 추가하기
+
+You can learn more about the `app/` directory [here](https://beta.nextjs.org/docs).
+
+## Run
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/june6723/junekim.io.git
+cd junekim.dev
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 참고한 글
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Next.js로 나만의 블로그 만들기 with 정적 생성](https://miryang.dev/blog/build-blog-with-nextjs)
