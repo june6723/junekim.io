@@ -15,8 +15,6 @@
 - [ ] Next v13 도입
 - [ ] 댓글 기능 추가하기
 
-You can learn more about the `app/` directory [here](https://beta.nextjs.org/docs).
-
 ## Run
 
 ```bash
