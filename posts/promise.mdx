@@ -1,0 +1,21 @@
+---
+type: Draft
+title: Promise 구현하기
+date: 2023-02-18
+description: Promise를 직접 구현하면서 Promise에 대한 이해를 늘려보자
+---
+
+## 서론
+
+작년부터 참여해오고 있던 [함수형 프로그래밍 스터디](https://github.com/FECrash/FunctionalProgramming)에서 많은 인사이트를 얻고 있었다.
+스터디 중반 즈음, [Lodash](https://lodash.com/), [Underscore](https://underscorejs.org/) 같은 유틸 함수들을 직접 구현해보는
+시간을 갖게 되었데, 실무에서도 빈번하게 쓰이는 Array method인 map, filter, reduce부터 아직은 낯설지만 함수형 프로그래밍에서 자주 쓰이는 듯한
+groupBy, take, takeUntil 같은 함수를 직접 구현했었다.
+
+> 직접 구현해본 유틸 함수는 절대 잊지 않는다.
+
+직접 함수들을 구현해보고 느낀점이였다. 애초에 직접 구현한다는것 자체가 해당 함수가 어떤 기능을 해야하는지 이해하고 그걸 코드로 정리해놓은 것이기 때문에
+직접 구현이 가능하다는것은 확실하게 이해를 하고 있다는 얘기와 마찬가지이기 때문이다.
+
+그 이후, 스터디에서 유틸 함수 구현이후에 Promise를 구현하는 시간까지 갖게 되었다. 프론트엔드 개발자라면 Promise를 잘 이해하고 있지 못하더라도
+되게 자주 사용하고 있을거라 생각한다. 나 또한 마찬가지였고
