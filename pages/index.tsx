@@ -1,7 +1,7 @@
 import { allPosts } from 'contentlayer/generated';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { postByDateDesc } from 'util/logic';
+import { documentByDateDesc } from 'util/logic';
 import Container from '../components/Container';
 import RecentPosts, { IRecentPosts } from '../components/RecentPosts';
 import metaData from '../data/metaData';
@@ -33,7 +33,7 @@ const Home = ({ recentPosts }: IRecentPosts) => {
 };
 
 export const getStaticProps: GetStaticProps<IRecentPosts> = async () => {
-  const recentPosts = allPosts.slice(0, 5).sort(postByDateDesc);
+  const recentPosts = allPosts.slice(0, 5).sort(documentByDateDesc);
   return { props: { recentPosts } };
 };
 

@@ -1,6 +1,6 @@
-import { allPosts } from 'contentlayer/generated';
+import { allPosts, allDocuments } from 'contentlayer/generated';
 import { InferGetStaticPropsType } from 'next';
-import { postByDateDesc } from 'util/logic';
+import { documentByDateDesc } from 'util/logic';
 import BlogPost from '../components/BlogPost';
 import Container from '../components/Container';
 
@@ -17,7 +17,8 @@ const Blog = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
 };
 
 export const getStaticProps = async () => {
-  const posts = allPosts.sort(postByDateDesc);
+  const documents = allDocuments.sort(documentByDateDesc);
+  const posts = allPosts.sort(documentByDateDesc);
 
   return {
     props: { posts },
