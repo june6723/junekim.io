@@ -7,7 +7,7 @@ export interface IRecentPosts {
 
 const RecentPosts = ({ recentPosts }: IRecentPosts) => {
   return (
-    <section className={`mt-10`}>
+    <section className={`mt-10 flex-1`}>
       <h1 className={`text-3xl font-extrabold`}>최근 게시물</h1>
       <div className={`flex flex-col`}>
         {recentPosts.map(post => (
