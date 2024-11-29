@@ -7,8 +7,70 @@ description: role attribute 소개
 
 # Role Attribute 설명
 
+HTML의 role 속성은 요소의 **접근성(A11Y)**을 향상시키기 위해 사용됩니다. 주로 화면 읽기 프로그램(screen readers)과 같은 보조 기술이 요소의 목적과 동작을 더 잘 이해할 수 있도록 도와줍니다.
+
 # 왜 필요한가?
+
+role 속성은 HTML 요소에 대해 다음과 같은 역할을 합니다:
+
+- **의미 부여**: HTML 기본 요소의 의미를 변경하거나, 기본적으로 의미가 없는 요소(예: <div>나 <span>)에 특정 역할을 부여.
+- **보조 기술과의 소통**: 스크린 리더와 같은 접근성 도구가 요소의 역할을 인식하고 사용자와 상호작용하도록 지원.
+- **상태 및 행동 설명**: 특정 역할과 관련된 상태나 속성을 사용자에게 알림(예: aria-expanded, aria-disabled와 함께 사용).
 
 # 어떻게 사용하는가?
 
+**a. 랜드마크 역할 (Landmark Roles)**
+웹 페이지의 주요 영역을 정의하여 내비게이션을 용이하게 함.
+
+- role="banner": 페이지의 상단 영역(보통 헤더).
+- role="navigation": 내비게이션 메뉴.
+- role="main": 페이지의 주요 콘텐츠 영역.
+- role="complementary": 보조적인 콘텐츠 영역(예: 사이드바).
+- role="contentinfo": 페이지 하단의 정보 영역(푸터).
+
+**b. 위젯 역할 (Widget Roles)**
+사용자와 상호작용하는 UI 요소를 정의.
+
+- role="button": 클릭 가능한 버튼.
+- role="checkbox": 체크박스.
+- role="dialog": 대화상자.
+- role="tablist"**,** role="tab"**,** role="tabpanel": 탭 UI 구성 요소.
+
+**c. 구조적 역할 (Structural Roles)**
+콘텐츠를 구조적으로 나눌 때 사용.
+
+- role="table", role="row", role="cell": 표를 구성.
+- role="list", role="listitem": 리스트 항목 정의.
+
+**d. 상태 및 속성 역할**
+
+### aria-\* 속성과 결합하여 UI 요소의 상태를 알림.
+
+- aria-expanded: 요소가 확장되었는지 여부.
+- aria-disabled: 요소가 비활성화되었는지 여부.
+- aria-hidden: 보조 기술에서 요소를 숨김.
+
 # 테스트 코드에서의 사용
+
+{ name: /submit/i }는 getByRole 함수에서 **역할(role)**뿐만 아니라 **접근 가능한 이름(accessible name)**을 기준으로 요소를 검색하는 데 사용됩니다.
+
+### 구체적인 동작 원리
+
+### 1 name **옵션의 의미**
+
+    * name은 **화면 읽기 프로그램(screen reader)**이 요소를 인식하는 이름을 기준으로 검색하는 조건입니다.
+    * 요소의 이름은 다음과 같은 방식으로 결정됩니다:
+    	* 요소의 텍스트 콘텐츠 (<button>Submit</button>)
+    	* aria-label 속성 (<button aria-label="Submit the form"></button>)
+    	* aria-labelledby 속성이 참조하는 요소의 텍스트
+    	* <label> 태그로 연결된 텍스트
+
+### 2 /submit/i**의 의미**
+
+    * /submit/i는 정규 표현식(regular expression)으로, 다음을 의미합니다:
+    	* submit: 텍스트에서 "submit"이라는 단어를 찾음.
+    	* i: 대소문자를 구분하지 않음(대문자 Submit 또는 소문자 submit 모두 매칭).
+    * 따라서 이 조건은 이름이 **"submit"이라는 단어를 포함한 모든 요소**를 찾습니다
+
+[About Queries](https://testing-library.com/docs/queries/about#priority)
+기본적으로 HTML DOM 테스트를 위해서는 [접근 가능한 이름](https://developer.mozilla.org/ko/docs/Glossary/Accessible_name)을 가지고 테스트를 하는것이 바람직하다. 접근가능한 이름은 눈에 보이는 요소가 우선순위가 높다. button에 텍스트라던지 placeholder, input 같은경우는 aria-label 속성으로도 지정 해줄 수 있다. 테스트뿐만 아니라 웹 접근성에도 도움이되니 앞으로 잘 활용해보도록 하자.
