@@ -53,9 +53,43 @@ export const Draft = defineDocumentType(() => ({
   },
 }));
 
+export const Shorts = defineDocumentType(() => ({
+  name: 'Shorts',
+  contentType: 'mdx',
+  filePathPattern: `**/*.mdx`,
+  fields: {
+    status: {
+      type: 'enum',
+      options: ['draft', 'published'],
+      description: 'The status of the shorts',
+      required: true,
+    },
+    title: {
+      type: 'string',
+      description: 'The title of the shorts',
+      required: true,
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the shorts',
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: true,
+    },
+  },
+  computedFields: {
+    url: {
+      type: 'string',
+      resolve: post => `/shorts/${post._raw.flattenedPath}`,
+    },
+  },
+}));
+
 export default makeSource({
   contentDirPath: 'posts',
-  documentTypes: [Post, Draft],
+  documentTypes: [Post, Draft, Shorts],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [rehypePrism, rehypeSlug, rehypeAutolinkHeadings],

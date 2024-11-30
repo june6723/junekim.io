@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'components/Container';
-import { allPosts, Post } from 'contentlayer/generated';
+import { allDocuments, allPosts, Post } from 'contentlayer/generated';
 import { getCustomMeta } from 'data/metaData';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useMDXComponent } from 'next-contentlayer/hooks';
@@ -26,6 +26,8 @@ export default function Shorts({ shortsIntro }: InferGetStaticPropsType<typeof g
 
 export const getStaticProps: GetStaticProps<{ shortsIntro: Post }> = async () => {
   const shortsIntro = allPosts.filter(post => post.title === 'Shorts 소개')[0];
+
+  console.log(allDocuments);
   if (!shortsIntro) return { notFound: true };
   return {
     props: { shortsIntro },

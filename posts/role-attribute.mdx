@@ -1,5 +1,6 @@
 ---
-type: Draft
+type: Shorts
+status: draft
 title: role attribute
 date: 2024-11-27
 description: role attribute 소개
@@ -13,7 +14,7 @@ HTML의 role 속성은 요소의 **접근성(A11Y)**을 향상시키기 위해 �
 
 role 속성은 HTML 요소에 대해 다음과 같은 역할을 합니다:
 
-- **의미 부여**: HTML 기본 요소의 의미를 변경하거나, 기본적으로 의미가 없는 요소(예: <div>나 <span>)에 특정 역할을 부여.
+- **의미 부여**: HTML 기본 요소의 의미를 변경하거나, 기본적으로 의미가 없는 요소(예: `<div>`나 `<span>`)에 특정 역할을 부여.
 - **보조 기술과의 소통**: 스크린 리더와 같은 접근성 도구가 요소의 역할을 인식하고 사용자와 상호작용하도록 지원.
 - **상태 및 행동 설명**: 특정 역할과 관련된 상태나 속성을 사용자에게 알림(예: aria-expanded, aria-disabled와 함께 사용).
 
@@ -52,7 +53,7 @@ role 속성은 HTML 요소에 대해 다음과 같은 역할을 합니다:
 
 # 테스트 코드에서의 사용
 
-{ name: /submit/i }는 getByRole 함수에서 **역할(role)**뿐만 아니라 **접근 가능한 이름(accessible name)**을 기준으로 요소를 검색하는 데 사용됩니다.
+name: `/submit/i` 는 getByRole 함수에서 **역할(role)**뿐만 아니라 **접근 가능한 이름(accessible name)**을 기준으로 요소를 검색하는 데 사용됩니다.
 
 ### 구체적인 동작 원리
 
@@ -63,11 +64,11 @@ role 속성은 HTML 요소에 대해 다음과 같은 역할을 합니다:
     	* 요소의 텍스트 콘텐츠 (<button>Submit</button>)
     	* aria-label 속성 (<button aria-label="Submit the form"></button>)
     	* aria-labelledby 속성이 참조하는 요소의 텍스트
-    	* <label> 태그로 연결된 텍스트
+    	* `<label>` 태그로 연결된 텍스트
 
 ### 2 /submit/i**의 의미**
 
-    * /submit/i는 정규 표현식(regular expression)으로, 다음을 의미합니다:
+    * `/submit/i`는 정규 표현식(regular expression)으로, 다음을 의미합니다:
     	* submit: 텍스트에서 "submit"이라는 단어를 찾음.
     	* i: 대소문자를 구분하지 않음(대문자 Submit 또는 소문자 submit 모두 매칭).
     * 따라서 이 조건은 이름이 **"submit"이라는 단어를 포함한 모든 요소**를 찾습니다
