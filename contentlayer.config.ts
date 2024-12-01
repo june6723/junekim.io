@@ -7,8 +7,14 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 export const Post = defineDocumentType(() => ({
   name: 'Post',
   contentType: 'mdx',
-  filePathPattern: `**/*.md`,
+  filePathPattern: `**/*.mdx`,
   fields: {
+    status: {
+      type: 'enum',
+      options: ['draft', 'published'],
+      description: 'The status of the shorts',
+      required: true,
+    },
     title: {
       type: 'string',
       description: 'The title of the post',
@@ -25,30 +31,6 @@ export const Post = defineDocumentType(() => ({
     url: {
       type: 'string',
       resolve: post => `/posts/${post._raw.flattenedPath}`,
-    },
-  },
-}));
-export const Draft = defineDocumentType(() => ({
-  name: 'Draft',
-  contentType: 'mdx',
-  filePathPattern: `**/*.md`,
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the post',
-      required: true,
-    },
-    date: {
-      type: 'date',
-      description: 'The date of the post',
-      required: true,
-    },
-    description: { type: 'string', required: true },
-  },
-  computedFields: {
-    url: {
-      type: 'string',
-      resolve: post => `/draft/${post._raw.flattenedPath}`,
     },
   },
 }));
@@ -89,7 +71,7 @@ export const Shorts = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'posts',
-  documentTypes: [Post, Draft, Shorts],
+  documentTypes: [Post, Shorts],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [rehypePrism, rehypeSlug, rehypeAutolinkHeadings],

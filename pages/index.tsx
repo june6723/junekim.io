@@ -1,13 +1,13 @@
 import RecentShorts from 'components/RecentShorts';
-import { allPosts, Post } from 'contentlayer/generated';
+import { allPosts, allShorts, Post, Shorts } from 'contentlayer/generated';
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { documentByDateDesc } from 'util/logic';
+import { documentByDateDesc, filterPublishedDocuments } from 'util/logic';
 import Container from '../components/Container';
 import RecentPosts from '../components/RecentPosts';
 import metaData from '../data/metaData';
 
-type HomeProps = { recentPosts: Post[]; recentShorts: Post[] };
+type HomeProps = { recentPosts: Post[]; recentShorts: Shorts[] };
 
 const Home = ({ recentPosts, recentShorts }: HomeProps) => {
   return (
@@ -39,17 +39,9 @@ const Home = ({ recentPosts, recentShorts }: HomeProps) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const recentPosts = allPosts
-    // TODO: 추후 쇼츠 소개 글 추가 시 수정
-    .filter(post => post.title !== 'Shorts 소개')
-    .slice(0, 5)
-    .sort(documentByDateDesc);
+  const recentPosts = allPosts.filter(filterPublishedDocuments).slice(0, 5).sort(documentByDateDesc);
 
-  // TODO: 추후 쇼츠 소개 글 추가 시 수정
-  const recentShorts = allPosts
-    .filter(post => post.title === 'Shorts 소개')
-    .slice(0, 5)
-    .sort(documentByDateDesc);
+  const recentShorts = allShorts.filter(filterPublishedDocuments).slice(0, 5).sort(documentByDateDesc);
   return { props: { recentPosts, recentShorts } };
 };
 

@@ -1,35 +1,32 @@
-import React from 'react';
 import Container from 'components/Container';
-import { allDocuments, allPosts, Post } from 'contentlayer/generated';
-import { getCustomMeta } from 'data/metaData';
+import DraftPreview from 'components/DraftPreview';
+import ShortsItem from 'components/ShortsItem';
+import { allShorts, Shorts } from 'contentlayer/generated';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { useMDXComponent } from 'next-contentlayer/hooks';
+import { documentByDateDesc, filterDraftDocuments, filterPublishedDocuments } from 'util/logic';
 
-export default function Shorts({ shortsIntro }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // shorts 페이지에 들어가는 컨텐츠들은 짧은 형식의 blog post 이다.
-  const MDXComponent = useMDXComponent(shortsIntro.body.code);
-  const customMeta = getCustomMeta({
-    title: shortsIntro.title,
-    description: shortsIntro.description,
-    date: shortsIntro.date,
-  });
-
+export default function ShortsList({ drafts, shorts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Container customMeta={customMeta}>
-      <div className="mt-10 prose dark:prose-invert">
-        <h1 className="text-white">{shortsIntro.title}</h1>
-        <MDXComponent />
+    <Container>
+      <div className={`mt-10 flex flex-col`}>
+        {drafts?.map(drafts => (
+          <DraftPreview key={drafts._id} draft={drafts} />
+        ))}
+        {shorts.map(shorts => (
+          <ShortsItem key={shorts._id} shorts={shorts} />
+        ))}
       </div>
     </Container>
   );
 }
 
-export const getStaticProps: GetStaticProps<{ shortsIntro: Post }> = async () => {
-  const shortsIntro = allPosts.filter(post => post.title === 'Shorts 소개')[0];
+export const getStaticProps: GetStaticProps<{ drafts: Shorts[] | null; shorts: Shorts[] }> = async () => {
+  const isDev = process.env.NODE_ENV === 'development';
 
-  console.log(allDocuments);
-  if (!shortsIntro) return { notFound: true };
+  const drafts = allShorts.filter(filterDraftDocuments).sort(documentByDateDesc);
+  const shorts = allShorts.filter(filterPublishedDocuments).sort(documentByDateDesc);
+
   return {
-    props: { shortsIntro },
+    props: { drafts: isDev ? drafts : null, shorts },
   };
 };

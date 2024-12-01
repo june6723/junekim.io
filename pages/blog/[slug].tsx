@@ -27,6 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<{ post: Post }> = async context => {
   const { slug } = context.params as IParams;
+
   const post = allPosts.find(p => p._raw.flattenedPath === slug);
 
   if (!post) return { notFound: true };
