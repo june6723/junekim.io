@@ -1,10 +1,19 @@
 ---
 type: Shorts
 status: draft
-title: role attribute
+title: HTML의 role attribute
 date: 2024-11-27
 description: role attribute 소개
 ---
+
+최근 이직 후 테스트 코드를 작성하는 과정에서 role attribute에 대해 알게되어 정리해보았다.
+사내에서 Jest를 통해서 단위 테스트를 진행하고 있는데 컴포넌트를 테스트하려 한다면 기본적으로 원하는 요소가 제대로 렌더링 되는지를 검사하는 테스트를 많이 진행하게 된다.
+
+(사진 첨부)
+
+이럴 때 DOM에서 query를 날려 내가 원하는 요소를 찾아야하는데, getByLabelText, getByPlaceholderText, getByAltText 등 검색할 수 있는 방법은 많지만 무엇이 올바른 방법인지 테스트에 익숙하지 않다면 헷갈리기 쉽다.
+그래서 Query 우선순위에 대해 정리된 공식문서가 있는데 [About Queries](https://testing-library.com/docs/queries/about#priority)
+여기서 가장 우선으로 추천하는 것이 바로 `getByRole` 이다.
 
 # Role Attribute 설명
 
