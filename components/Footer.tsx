@@ -30,8 +30,8 @@ const Footer = () => {
           </a>
         </div>
         <div className="mt-4 text-sm text-gray-400">{`Copyright © ${thisYear} June Kim`}</div>
-        <Link href={process.env.URL ?? ''}>
-          <a className="mt-2 text-sm font-medium text-gray-400 hover:text-gray-300">{BLOG_URL}</a>
+        <Link href={process.env.URL ?? ''} className="mt-2 text-sm font-medium text-gray-400 hover:text-gray-300">
+          {BLOG_URL}
         </Link>
       </div>
     </footer>

@@ -17,8 +17,8 @@ const Home = ({ recentPosts, recentShorts }: HomeProps) => {
           <Image
             src={`/home.jpg`}
             alt="대표 이미지"
-            width={`100%`}
-            height={45}
+            width={768}
+            height={432}
             layout={`responsive`}
             objectFit="cover"
             className={`rounded-3xl`}

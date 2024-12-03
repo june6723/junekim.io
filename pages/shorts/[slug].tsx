@@ -2,7 +2,7 @@ import Container from 'components/Container';
 import { allShorts, Shorts } from 'contentlayer/generated';
 import { getCustomMeta } from 'data/metaData';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { useMDXComponent } from 'next-contentlayer/hooks';
+import { useMDXComponent } from 'next-contentlayer2/hooks';
 
 export default function ShortsDetail({ shorts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const MDXComponent = useMDXComponent(shorts.body.code);
