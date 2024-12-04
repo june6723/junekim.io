@@ -31,8 +31,8 @@ const Container = ({ children, customMeta }: Props) => {
       </Head>
       <header className={`w-full max-w-3xl flex flex-row justify-between items-center my-1`}>
         <div className={`flex flex-row items-center`}>
-          <div className="relative w-[40px] h-[40px]">
-            <Image src={`/logo.jpeg`} alt="logo" fill className={`rounded-full object-cover`} />
+          <div className="relative w-[36px] h-[36px]">
+            <Image src={`/logo.jpeg`} alt="logo" fill className={`rounded-full object-cover`} sizes="36px" />
           </div>
           <span className={`mx-2 font-extralight text-lg`}>{metaData.title}</span>
         </div>

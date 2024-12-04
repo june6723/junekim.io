@@ -14,15 +14,7 @@ const Home = ({ recentPosts, recentShorts }: HomeProps) => {
     <Container>
       <div className={`my-5 w-full`}>
         <div className={`relative`}>
-          <Image
-            src={`/home.jpg`}
-            alt="대표 이미지"
-            width={768}
-            height={432}
-            layout={`responsive`}
-            objectFit="cover"
-            className={`rounded-3xl`}
-          />
+          <Image src={`/home.jpg`} alt="대표 이미지" width={768} height={432} className={`rounded-3xl object-cover`} />
           <span
             className={`absolute top-12 font-extrabold italic text-white text-5xl md:text-9xl text flex justify-center w-full drop-shadow-lg`}
           >
