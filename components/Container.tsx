@@ -14,6 +14,7 @@ const Container = ({ children, customMeta }: Props) => {
   const { title, url, siteName, description, image, twitterName } = { ...metaData, ...customMeta };
   return (
     <div className={`w-full flex flex-col items-center p-3 `}>
+      {/* TODO: nextjs에서 새롭게 meta data 주입하는 방법 완료되면 제거 */}
       <Head>
         <title>{title}</title>
         <meta content={description} name="description" />

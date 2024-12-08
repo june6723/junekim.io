@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <nav>
       {navLinks.map(({ title, link }) => (
-        <Link key={title} href={link} className={`mr-5`}>
+        <Link key={title} href={link} className={`mr-5`} target={title === 'About' ? '_blank' : '_self'}>
           {title}
         </Link>
       ))}
