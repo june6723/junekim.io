@@ -18,8 +18,9 @@
     "paths": {
       "contentlayer/generated": ["./.contentlayer/generated"],
       "@/*": ["./*"]
-    }
+    },
+    "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".contentlayer/generated"],
+  "include": ["**/*.ts", "**/*.tsx", ".contentlayer/generated", "next-env.d.ts", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
