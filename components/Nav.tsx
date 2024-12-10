@@ -1,15 +1,28 @@
 import Link from 'next/link';
 import navLinks from '../data/navLinks';
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from './ui/navigation-menu';
 
 const Nav = () => {
   return (
-    <nav>
-      {navLinks.map(({ title, link }) => (
-        <Link key={title} href={link} className={`mr-5`} target={title === 'About' ? '_blank' : '_self'}>
-          {title}
-        </Link>
-      ))}
-    </nav>
+    <NavigationMenu>
+      <NavigationMenuList>
+        {navLinks.map(({ title, link }) => (
+          <NavigationMenuItem key={title}>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()} asChild>
+              <Link href={link} target={title === 'About' ? '_blank' : '_self'}>
+                {title}
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 
