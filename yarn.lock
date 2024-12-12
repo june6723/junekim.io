@@ -4763,6 +4763,7 @@ __metadata:
     next: "npm:^15.0.3"
     next-contentlayer2: "npm:^0.5.3"
     next-sitemap: "npm:^3.1.45"
+    next-themes: "npm:^0.4.4"
     postcss: "npm:^8.4.18"
     react: "npm:19.0.0-rc.1"
     react-dom: "npm:19.0.0-rc.1"
@@ -5869,6 +5870,16 @@ __metadata:
     next-sitemap: bin/next-sitemap.mjs
     next-sitemap-cjs: bin/next-sitemap.cjs
   checksum: 10/9514868f72319de79d513f4f3e725914044d256cefef8841f45869f02f67f7928807a9821f8b7c1bf60d00fb742a288200e260475778f4d8185058a6c2a33ece
+  languageName: node
+  linkType: hard
+
+"next-themes@npm:^0.4.4":
+  version: 0.4.4
+  resolution: "next-themes@npm:0.4.4"
+  peerDependencies:
+    react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+  checksum: 10/f70bad0f7b11281f4c2740f4d6fda48943349623b61d0958ed92672263f6f00001da497e26676ffc88e6e06b1a3fd6a81a79242efc410caee734aee948539ed7
   languageName: node
   linkType: hard
 
