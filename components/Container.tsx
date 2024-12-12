@@ -12,7 +12,7 @@ const Container = ({ children }: PropsWithChildren) => {
           <div className="relative w-[36px] h-[36px]">
             <Image src={`/logo.jpeg`} alt="logo" fill className={`rounded-full object-cover`} sizes="36px" />
           </div>
-          <span className={`mx-2 font-extralight text-lg`}>{metaData.title}</span>
+          <span className={`mx-2`}>{metaData.title}</span>
         </div>
         <Nav />
       </header>
