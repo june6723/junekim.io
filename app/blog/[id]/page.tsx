@@ -54,7 +54,7 @@ export default async function BlogPost({ params }: { params: Promise<{ id: strin
   return (
     <Container>
       <div className="mt-10 prose dark:prose-invert">
-        <h1 className="text-white">{post.title}</h1>
+        <h1>{post.title}</h1>
         <ClientMDX code={post.body.code} />
       </div>
     </Container>
