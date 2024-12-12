@@ -53,7 +53,7 @@ export default async function ShortsDetail({ params }: { params: Promise<{ id: s
   return (
     <Container>
       <div className="mt-10 prose dark:prose-invert">
-        <h1 className="text-white">{shorts.title}</h1>
+        <h1>{shorts.title}</h1>
         <ClientMDX code={shorts.body.code} />
       </div>
     </Container>
