@@ -2,5 +2,6 @@
 
 import promiseMdx from './promise.mdx.json' with { type: 'json' }
 import reactSuspenseMdx from './react-suspense.mdx.json' with { type: 'json' }
+import whyHoistingMdx from './why-hoisting.mdx.json' with { type: 'json' }
 
-export const allPosts = [promiseMdx, reactSuspenseMdx]
+export const allPosts = [promiseMdx, reactSuspenseMdx, whyHoistingMdx]

@@ -29,8 +29,9 @@ export default function BlogPage() {
   const isDev = process.env.NODE_ENV === 'development';
 
   const drafts = isDev ? allPosts.filter(filterDraftDocuments).sort(documentByDateDesc) : null;
-  const posts = allPosts.filter(filterPublishedDocuments).sort(documentByDateDesc);
 
+  const posts = allPosts.filter(filterPublishedDocuments).sort(documentByDateDesc);
+  console.log(allPosts.map(post => post.status));
   return (
     <Container>
       <div className={`mt-10 flex flex-col`}>

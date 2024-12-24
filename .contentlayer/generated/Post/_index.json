@@ -38,5 +38,25 @@
     },
     "type": "Post",
     "url": "/posts/react-suspense"
+  },
+  {
+    "status": "draft",
+    "title": "Javascript에는 왜 hoisting이 존재할까?",
+    "date": "2024-12-24T00:00:00.000Z",
+    "description": "호이스팅에 대해 알아보자",
+    "body": {
+      "raw": "\n## Hoisting\n\n최근에 기술 면접을 진행하게 되었는데 면접관 중 한 분이 호이스팅에 대해서 질문을 하셨다.\n사실 신입, 경력 가리지 않고 호이스팅에 대한 질문은 자주 만나게 되는것 같은데 이번에는 조금 더 들어간 질문 중 왜 Javascript에는 hoisting이 존재할까? 라는 질문을 받게 되었다.\n",
+      "code": "var Component=(()=>{var m=Object.create;var a=Object.defineProperty;var x=Object.getOwnPropertyDescriptor;var l=Object.getOwnPropertyNames;var u=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var g=(n,t)=>()=>(t||n((t={exports:{}}).exports,t),t.exports),_=(n,t)=>{for(var i in t)a(n,i,{get:t[i],enumerable:!0})},r=(n,t,i,o)=>{if(t&&typeof t==\"object\"||typeof t==\"function\")for(let s of l(t))!f.call(n,s)&&s!==i&&a(n,s,{get:()=>t[s],enumerable:!(o=x(t,s))||o.enumerable});return n};var j=(n,t,i)=>(i=n!=null?m(u(n)):{},r(t||!n||!n.__esModule?a(i,\"default\",{value:n,enumerable:!0}):i,n)),M=n=>r(a({},\"__esModule\",{value:!0}),n);var d=g((D,c)=>{c.exports=_jsx_runtime});var y={};_(y,{default:()=>p,frontmatter:()=>v});var e=j(d()),v={status:\"draft\",type:\"Post\",title:\"Javascript\\uC5D0\\uB294 \\uC65C hoisting\\uC774 \\uC874\\uC7AC\\uD560\\uAE4C?\",date:\"2024-12-24\",description:\"\\uD638\\uC774\\uC2A4\\uD305\\uC5D0 \\uB300\\uD574 \\uC54C\\uC544\\uBCF4\\uC790\"};function h(n){let t={a:\"a\",h2:\"h2\",p:\"p\",span:\"span\",...n.components};return(0,e.jsxs)(e.Fragment,{children:[(0,e.jsxs)(t.h2,{id:\"hoisting\",children:[(0,e.jsx)(t.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#hoisting\",children:(0,e.jsx)(t.span,{className:\"icon icon-link\"})}),\"Hoisting\"]}),`\n`,(0,e.jsx)(t.p,{children:`\\uCD5C\\uADFC\\uC5D0 \\uAE30\\uC220 \\uBA74\\uC811\\uC744 \\uC9C4\\uD589\\uD558\\uAC8C \\uB418\\uC5C8\\uB294\\uB370 \\uBA74\\uC811\\uAD00 \\uC911 \\uD55C \\uBD84\\uC774 \\uD638\\uC774\\uC2A4\\uD305\\uC5D0 \\uB300\\uD574\\uC11C \\uC9C8\\uBB38\\uC744 \\uD558\\uC168\\uB2E4.\n\\uC0AC\\uC2E4 \\uC2E0\\uC785, \\uACBD\\uB825 \\uAC00\\uB9AC\\uC9C0 \\uC54A\\uACE0 \\uD638\\uC774\\uC2A4\\uD305\\uC5D0 \\uB300\\uD55C \\uC9C8\\uBB38\\uC740 \\uC790\\uC8FC \\uB9CC\\uB098\\uAC8C \\uB418\\uB294\\uAC83 \\uAC19\\uC740\\uB370 \\uC774\\uBC88\\uC5D0\\uB294 \\uC870\\uAE08 \\uB354 \\uB4E4\\uC5B4\\uAC04 \\uC9C8\\uBB38 \\uC911 \\uC65C Javascript\\uC5D0\\uB294 hoisting\\uC774 \\uC874\\uC7AC\\uD560\\uAE4C? \\uB77C\\uB294 \\uC9C8\\uBB38\\uC744 \\uBC1B\\uAC8C \\uB418\\uC5C8\\uB2E4.`})]})}function p(n={}){let{wrapper:t}=n.components||{};return t?(0,e.jsx)(t,{...n,children:(0,e.jsx)(h,{...n})}):h(n)}return M(y);})();\n;return Component;"
+    },
+    "_id": "why-hoisting.mdx",
+    "_raw": {
+      "sourceFilePath": "why-hoisting.mdx",
+      "sourceFileName": "why-hoisting.mdx",
+      "sourceFileDir": ".",
+      "contentType": "mdx",
+      "flattenedPath": "why-hoisting"
+    },
+    "type": "Post",
+    "url": "/posts/why-hoisting"
   }
 ]
