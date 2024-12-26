@@ -1,12 +1,146 @@
 ---
-status: draft
+status: published
 type: Post
 title: Javascript에는 왜 hoisting이 존재할까?
-date: 2024-12-24
-description: 호이스팅에 대해 알아보자
+date: 2024-12-26
+description: 면접 단골질문 Hoisting에 대해 알아보자
 ---
+
+최근에 기술 면접을 진행하게 되었는데 면접관 중 한 분이 호이스팅에 대해서 질문을 하셨다.
+사실 신입, 경력 가리지 않고 호이스팅에 대한 질문은 자주 만나게 되는 기술 질문 중 하나이다. 이번에도 먼저 hoisting에 대한 기본적인 질문을 받았고 해당 질문에 답변 이후 추가적으로 질문을 주셨다.
+
+> 왜 Javascript에는 hoisting이 존재하는 걸까요?
+
+생각해보니 hoisting이 어떤것인지에 대해서만 학습했었고 근본적으로 왜 Javascript는 hoisting을 하게 된걸까 나도 궁금해졌고 그에 대한 답변을 여기에 적어보려고 한다.
+(참고로 이 질문에 대해서 본인은 답변을 하지 못하고 넘어갔다 😂)
 
 ## Hoisting
 
-최근에 기술 면접을 진행하게 되었는데 면접관 중 한 분이 호이스팅에 대해서 질문을 하셨다.
-사실 신입, 경력 가리지 않고 호이스팅에 대한 질문은 자주 만나게 되는것 같은데 이번에는 조금 더 들어간 질문 중 왜 Javascript에는 hoisting이 존재할까? 라는 질문을 받게 되었다.
+일단 why? 에 대한 질문을 해소하기 전에 hoisting이 어떤 녀석인지 what에 대해서 먼저 짚어보고 넘어가자.
+
+```js
+console.log(foo); // undefined
+
+var foo = 'bar';
+```
+
+hoisting 에 대해서 검색하다보면 마주치는 대표적인 예시이다. 변수 선언전에 변수를 사용하더라도 에러가 발생하는 것이 아니라 `undefined`를 출력하는 것을 볼 수 있다. 그래서 마치 Javascript가 변수 선언을 최상단으로 `끌어올려` 처리하는것처럼 보이는 것을 Hoisting이라고 한다. (방금 끌어올리는것처럼 "보인다" 라고 표현했는데, 왜 이렇게 말했는지 이유에 대해서 천천히 설명할 예정이다.)
+
+hosting은 변수뿐만 아니라 함수에도 적용이 된다.
+
+```js
+sayHello(); // "Hello!"
+
+function sayHello() {
+  console.log('Hello!');
+}
+```
+
+변수와 마찬가지로 함수 선언전에 함수를 실행하더라도 정상적으로 동작한다.
+
+### 선언(declaration)과 할당(assignment)
+
+hoisting을 더 디테일하게 이해하기 위해서는 선언과 할당을 분리해볼 필요가 있다.
+
+```js
+console.log(foo); // undefined
+console.log(bar); // ReferenceError
+console.log(baz); // ReferenceError
+
+var foo = 'foo';
+let bar = 'bar';
+const baz = 'baz';
+```
+
+위 코드에서 `foo`는 에러 없이 출력이 되지만 **let**, **const** 키워드로 선언한 `bar`, `baz`는 에러가 발생한다. 자바스크립트가 **var**, **let**, **const** 키워드로 선언한 변수를 할당전에 미리 선언하는것은 동일하다.
+
+하지만 **var**의 경우는 선언과 동시에 undefined로 변수를 초기화 시키는 반면 **let**, **const**의 경우는 선언만 하고 초기화는 하지 않는다. 선언만 되고 초기화가 되지 않은 변수에 접근하려고 하기때문에 위와 같은 에러가 발생하는 것이다. **TDZ**(Temporal Dead Zone) 이라는 개념이 바로 여기에 해당한다고 보면 되겠다.
+
+```js
+sayHi(); // TypeError
+
+var sayHi = function () {
+  console.log('Hi!');
+};
+```
+
+위에서 확인했던 **함수 선언**(Function Declaration)은 함수 실행이 먼저와도 괜찮았지만 **함수 할당**(Function Assignment)은 함수 선언전에 함수를 실행하면 에러가 발생한다. 이유는 마찬가지로 선언과 할당을 위처럼 분리해서 생각해보면 쉬운데, `sayHi`라는 변수는 선언이 이뤄지면서 초기화가 `undefined`로 되는데 함수가 아닌 `undefined` 값을 실행시키려고 하니 당연히 에러가 나는 상황이다.
+
+## 그럼 왜 Javascript에는 hoisting이 존재할까?
+
+자 이제 hoisting이 어떤 현상인지에 대해서 알아봤으니 이제 why? 에 대해서 살펴볼 차례이다. 이유를 알기 위해서는 자바스크립트가 작성한 코드를 어떻게 처리하는지 알아야한다. 그래서 우리는 지금부터 Javascript의 interpreter에 대해서 알아볼 필요가 있다.
+
+Javascript의 interpreter는 2가지 phase로 나누어서 코드를 처리를 하게 되는데,
+
+- Creation Phase
+- Execution Phase
+
+2가지 단계가 존재한다.
+
+### Creation Phase
+
+Creation Phase에서 실행 컨텍스트(Execution Context)를 생성하게 된다. 실행 컨텍스트는 이 주제에서는 조금 벗어난 내용이라서 추후에 다루도록 할테지만, 간단하게 말하자면 이 단계에서 코드에 존재하는 변수와 함수를 먼저 선언하고 메모리에 할당하는 작업을 한다고 이해하면 좋을것 같다.
+
+### Execution Phase
+
+Execution Phase에서는 코드가 한 줄씩 실행되면서 변수에 값을 할당하고 함수 실행등이 이 단계에서 이뤄지게 된다.
+
+```js
+console.log(foo); // undefined
+
+var foo = 'bar';
+```
+
+interpreter가 어떻게 코드를 처리하는지에 대한 관점으로 이제 앞선 코드를 바라보게 되면 훨신 디테일하게 설명이 가능하다.
+
+1. 우선 Creation Phase에서 변수 `foo`를 선언하고 메모리에 할당한다. 더불어 var 키워드로 선언했기 때문에 메모리에는 `undefined`로 초기화 된다.
+2. Execution Phase에서 console.log(foo)를 실행하게 되면 메모리에 할당된 `foo`를 찾아서 출력하게 된다. 이때 메모리에 할당된 `foo`는 `undefined`이기 때문에 `undefined`가 출력된다.
+3. 그 후에 var foo = 'bar'; 이 실행되면서 메모리에 할당된 `foo`에 'bar'를 할당하게 된다.
+
+앞서 hoisting이 변수 선언을 끌어올리는것처럼 "보인다" 라고 표현했는데, Creation Phase 작업이 먼저 이뤄지기 때문에 그렇게 보이는 것이지 실제로 선언이 위로 옮겨지는 것은 아니다.
+
+[MDN에서도 hoisting](https://developer.mozilla.org/ko/docs/Glossary/Hoisting) 을 검색하면 아래와 같이 정의하고 있다.
+
+> JavaScript 호이스팅은 인터프리터가 코드를 실행하기 전에 함수, 변수, 클래스 또는 임포트(import)의 선언문을 해당 범위의 맨 위로 끌어올리는 것처럼 보이는 현상을 뜻합니다.
+
+## 그런데 왜 interpreter가 이렇게 동작하는걸까?
+
+사실 위에서 했던 질문은 javascript의 interpreter가 동작하는 기술적인 이유에 대한 답변이지 왜 그렇게 interpreter를 설계했을까? 에 대한 답변은 아니다.
+
+이유를 찾아 헤메다가 트위터에 JS의 창시자인 [Brendan Eich가 직접 설명한 트윗](https://x.com/BrendanEich/status/522394590301933568)를 발견했다.
+
+![why-js-hoisting](/why-js-hoisting.png)
+
+1. "function hoisting allows top-down program decomposition"
+
+함수 호이스팅은 "top-down" 방식의 프로그램 분해를 가능하게 한다
+
+```js
+   // 이런 코드 구조가 가능해짐
+   function main() {
+     doSomething();  // 주요 로직을 위에 둘 수 있음
+     helper1();
+     helper2();
+   }
+
+   // 구체적인 구현 함수를 아래에 둘 수 있음
+   function helper1() { ... }
+   function helper2() { ... }
+```
+
+2. 'let rec' for free
+   'let rec'(재귀 함수 정의) 구현이 쉽다.
+
+```js
+function factorial(n) {
+  if (n <= 1) return 1;
+  return n * factorial(n - 1); // 함수 내부에서 자기 자신 호출 가능
+}
+
+console.log(factorial(5));
+```
+
+이런 이유들로 function hoisting을 지원하게 되었다고 하나 brendan 자신도 추가적으로 말한것처럼 var 키워드는 급하게 만들다보니 의도치않은 결과가 나오게 된것이라고 인정하고 있다😂
+(진짜 var는 이제 보내주도록하자)
+
+아무쪼록 이 글이 javascript에서 hoisting이 왜 존재하는지에 대한 기술적, 설계적인 관점에서 답변이 조금이라도 되었으면 좋겠다. 아마 면접에서 실행 컨텍스트라는 키워드를 꺼내는 순간 면접관이 실행 컨텍스트에 대한 꼬리 질문을 할 가능성이 98% 쯤 되는것 같은데 추후에 실행 컨텍스트에 대해서도 꼭 다루어 보도록 하겠다.
